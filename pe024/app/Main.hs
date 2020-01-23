@@ -1,7 +1,9 @@
 module Main where
 
-import Data.List (intercalate)
 import Lib
 
+ans :: [Int]
 ans = perm 999999 [0..9]
-main = putStrLn $ intercalate "" $ map show ans
+
+main :: IO ()
+main = putStrLn $ concat $ map show ans
