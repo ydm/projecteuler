@@ -58,9 +58,7 @@ f ()
 
       zeros += (tail == 0) - (head == 0);
       if (maximum < rolling && zeros == 0)
-        {
-          maximum = rolling;
-        }
+        maximum = rolling;
     }
 
   free (digits);
