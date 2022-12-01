@@ -17,13 +17,18 @@ spans xs = ys : (spans $ tail zs)
 parse :: T.Text -> Int
 parse = read . T.unpack
 
+conv :: T.Text -> [Int]
+conv =
+  reverse         <$>                
+  sort            <$>
+  map sum         <$>
+  map (map parse) <$>
+  spans           <$>
+  (map T.strip)   <$>
+  split
+
 main :: IO ()
-main =
-  last                      <$>
-  sort                      <$>
-  map sum                   <$>
-  map (map parse)           <$>
-  spans                     <$>
-  (map T.strip)             <$>
-  split                     <$>
-  (TIO.readFile "01.input") >>= (putStr . show)
+main = do
+  xs <- conv <$> (TIO.readFile "01.input")
+  putStrLn $ show $ head xs
+  putStrLn $ show $ sum $ take 3 xs
