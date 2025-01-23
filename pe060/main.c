@@ -123,7 +123,7 @@ static void loop(unsigned space, uint64_t *sieve, unsigned stack[STACK],
       stack[index] = p;
       loop(space, sieve, stack, index + 1);
     }
-    p = next_prime(sieve, space, p);
+    p = next_prime(sieve, LIMIT, p);
   }
 }
 
