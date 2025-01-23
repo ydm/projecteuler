@@ -128,7 +128,7 @@ static void loop(uint64_t *sieve, unsigned space, unsigned stack[STACK],
 }
 
 int main() {
-  uint64_t *sieve = calloc(LIMIT / 0x40 + 1, sizeof(uint64_t));
+  uint64_t *sieve = calloc(LIMIT / 64 + 1, sizeof(uint64_t));
   eratosthenes(sieve, LIMIT);
 
   unsigned stack[STACK];
