@@ -98,7 +98,7 @@ static bool check(unsigned target, uint64_t *sieve, unsigned stack[],
   return true;
 }
 
-static void loop(uint64_t *sieve, unsigned space, unsigned stack[STACK],
+static void loop(unsigned space, uint64_t *sieve, unsigned stack[STACK],
                  unsigned index) {
   if (index >= STACK) {
     if (check(stack[index - 1], sieve, stack, STACK - 1)) {
@@ -121,7 +121,7 @@ static void loop(uint64_t *sieve, unsigned space, unsigned stack[STACK],
   while (p && p < space) {
     if (check(p, sieve, stack, index)) {
       stack[index] = p;
-      loop(sieve, space, stack, index + 1);
+      loop(space, sieve, stack, index + 1);
     }
     p = next_prime(sieve, space, p);
   }
@@ -134,7 +134,7 @@ int main() {
   unsigned stack[STACK];
   memset(stack, 0, STACK * sizeof(unsigned));
 
-  loop(sieve, SPACE, stack, 0);
+  loop(SPACE, sieve, stack, 0);
 
   free(sieve);
   return 0;
