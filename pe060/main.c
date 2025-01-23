@@ -98,15 +98,17 @@ static bool check(unsigned target, uint64_t *sieve, unsigned stack[],
   return true;
 }
 
-static void loop(uint64_t *sieve, unsigned upto, unsigned stack[STACK],
+static void loop(uint64_t *sieve, unsigned space, unsigned stack[STACK],
                  unsigned index) {
   if (index >= STACK) {
     if (check(stack[index - 1], sieve, stack, STACK - 1)) {
       printf("stack:");
+      unsigned ans = 0;
       for (unsigned s = 0; s < STACK; s++) {
+        ans += stack[s];
         printf(" %u", stack[s]);
       }
-      printf("\n");
+      printf(", ans=%u\n", ans);
       exit(EXIT_SUCCESS);
     }
     return;
@@ -116,12 +118,12 @@ static void loop(uint64_t *sieve, unsigned upto, unsigned stack[STACK],
   if (index > 0) {
     p = next_prime(sieve, LIMIT, stack[index - 1]);
   }
-  while (p && p < upto) {
+  while (p && p < space) {
     if (check(p, sieve, stack, index)) {
       stack[index] = p;
-      loop(sieve, upto, stack, index + 1);
+      loop(sieve, space, stack, index + 1);
     }
-    p = next_prime(sieve, upto, p);
+    p = next_prime(sieve, space, p);
   }
 }
 
